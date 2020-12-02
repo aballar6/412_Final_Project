@@ -1,0 +1,702 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: DATABASE postgres; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: admin; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.admin (
+    gender character(1),
+    uid character(10) NOT NULL,
+    name text,
+    email text,
+    birthday date
+);
+
+
+ALTER TABLE public.admin OWNER TO postgres;
+
+--
+-- Name: album; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.album (
+    name text NOT NULL,
+    aid character(10) NOT NULL,
+    release_year character(4)
+);
+
+
+ALTER TABLE public.album OWNER TO postgres;
+
+--
+-- Name: artist; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.artist (
+    name text NOT NULL,
+    artid character(10) NOT NULL
+);
+
+
+ALTER TABLE public.artist OWNER TO postgres;
+
+--
+-- Name: genre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.genre (
+    name text NOT NULL,
+    gid character(10) NOT NULL
+);
+
+
+ALTER TABLE public.genre OWNER TO postgres;
+
+--
+-- Name: has; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.has (
+    gid character(10),
+    tid character(10) NOT NULL
+);
+
+
+ALTER TABLE public.has OWNER TO postgres;
+
+--
+-- Name: song; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.song (
+    publisher_name text,
+    tid character(10) NOT NULL,
+    aid character(10),
+    artid character(10)
+);
+
+
+ALTER TABLE public.song OWNER TO postgres;
+
+--
+-- Name: title; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.title (
+    name text NOT NULL,
+    tid character(10) NOT NULL,
+    length_sec integer NOT NULL
+);
+
+
+ALTER TABLE public.title OWNER TO postgres;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    gender character(1),
+    uid character(10) NOT NULL,
+    name text,
+    email text,
+    birthday date
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.admin (gender, uid, name, email, birthday) FROM stdin;
+M	0         	Nigel Wong	nigelwong@musicify.com	1999-11-28
+\.
+
+
+--
+-- Data for Name: album; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.album (name, aid, release_year) FROM stdin;
+adlu02\n	1         	1974
+adlu01\n	2         	2025
+adlt15\n	3         	1705
+adlt14\n	4         	1547
+adlt13\n	5         	1852
+adlt12\n	6         	1734
+adlt11\n	7         	1837
+adlt10\n	8         	1759
+adlt09\n	9         	1588
+adlt08\n	10        	1516
+adlt07\n	11        	2023
+adlt06\n	12        	1711
+adlt05\n	13        	1934
+adlt04\n	14        	1682
+adlt03\n	15        	2012
+adlt02\n	16        	1609
+adlt01\n	17        	1919
+adls05\n	18        	1699
+adls04\n	19        	1696
+adls03\n	20        	1546
+adls02\n	21        	1999
+adls01\n	22        	1701
+adlmsc\n	23        	1702
+adlg02\n	24        	1536
+adlg01\n	25        	1684
+adle04\n	26        	1627
+adle03\n	27        	1974
+adle02\n	28        	1978
+adle01\n	29        	1880
+adelphi\n	30        	1542
+adel03\n	31        	1764
+adel01\n	32        	2002
+adea\n	33        	1915
+addison\n	34        	1793
+adapter\n	35        	1695
+adana\n	36        	1543
+adamstown\n	37        	2001
+adams\n	38        	2000
+adam\n	39        	1834
+ada\n	40        	1505
+acss\n	41        	1747
+acscvax\n	42        	1705
+acscsun\n	43        	1591
+acs\n	44        	1785
+acoustics\n	45        	2011
+acorn32\n	46        	1970
+acorn26\n	47        	1618
+acorn\n	48        	1511
+acord\n	49        	1511
+acon\n	50        	1766
+test	444       	444 
+pog123	11/11/99  	123 
+itworks	666       	1900
+\.
+
+
+--
+-- Data for Name: artist; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.artist (name, artid) FROM stdin;
+Liam\n	1         
+Noah\n	2         
+Oliver\n	3         
+William\n	4         
+James\n	6         
+Benjamin\n	7         
+Lucas\n	8         
+Mason\n	9         
+Ethan\n	10        
+Alexander\n	11        
+Henry\n	12        
+Jacob\n	13        
+Michael\n	14        
+Daniel\n	15        
+Logan\n	16        
+Jackson\n	17        
+Sebastian\n	18        
+Jack\n	19        
+Aiden\n	20        
+Owen\n	21        
+Samuel\n	22        
+Matthew\n	23        
+Joseph\n	24        
+Levi\n	25        
+Mateo\n	26        
+David\n	27        
+John\n	28        
+Wyatt\n	29        
+Carter\n	30        
+Julian\n	31        
+Luke\n	32        
+Grayson\n	33        
+Isaac\n	34        
+Jayden\n	35        
+Theodore\n	36        
+Gabriel\n	37        
+Anthony\n	38        
+Dylan\n	39        
+Leo\n	40        
+Lincoln\n	41        
+Jaxon\n	42        
+Asher\n	43        
+Christopher\n	44        
+Josiah\n	45        
+Andrew\n	46        
+Thomas\n	47        
+Joshua\n	48        
+Ezra\n	49        
+Porter	5         
+OwO	666       
+\.
+
+
+--
+-- Data for Name: genre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.genre (name, gid) FROM stdin;
+alternative metal\n	3         
+alternative rock\n	4         
+ambient\n	5         
+ambient house\n	6         
+ambient music\n	7         
+americana\n	8         
+anarcho punk\n	9         
+anime music\n	10        
+anti-folk\n	11        
+apala\n	12        
+ape haters\n	13        
+arab pop\n	14        
+arabesque\n	15        
+arabic pop\n	16        
+argentine rock\n	17        
+ars antiqua\n	18        
+ars nova\n	19        
+art punk\n	20        
+art rock\n	21        
+ashiq\n	22        
+asian american jazz\n	23        
+australian country music\n	24        
+australian hip hop\n	25        
+australian pub rock\n	26        
+austropop\n	27        
+avant-garde\n	28        
+avant-garde jazz\n	29        
+avant-garde metal\n	30        
+avant-garde music\n	31        
+axé\n	32        
+bac-bal\n	33        
+bachata\n	34        
+background music\n	35        
+baggy\n	36        
+baila\n	37        
+baile funk\n	38        
+baisha xiyue\n	39        
+baithak gana\n	40        
+baião\n	41        
+bajourou\n	42        
+bakersfield sound\n	43        
+bakou\n	44        
+bakshy\n	45        
+bal-musette\n	46        
+balakadri\n	47        
+balinese gamelan\n	48        
+balkan pop\n	49        
+ballad\n	50        
+test	9999      
+test2	666       
+poog	555       
+wow	676       
+please	7654      
+althiphop	2         
+yup	1         
+HAHAHAA	1111      
+\.
+
+
+--
+-- Data for Name: has; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.has (gid, tid) FROM stdin;
+16        	87878     
+31        	5018      
+12        	1th1      
+29        	1movie    
+25        	jazz101   
+29        	ryan101   
+20        	water21   
+27        	40        
+46        	25        
+37        	4         
+10        	49        
+28        	29        
+48        	26        
+40        	25        
+19        	47        
+12        	48        
+21        	38        
+20        	39        
+32        	37        
+7         	25        
+17        	44        
+33        	18        
+37        	21        
+23        	25        
+2         	50        
+4         	3         
+14        	44        
+17        	49        
+30        	32        
+1         	25        
+25        	14        
+49        	40        
+15        	9         
+10        	40        
+7         	34        
+27        	50        
+13        	14        
+29        	11        
+23        	33        
+9         	46        
+33        	44        
+6         	40        
+10        	6         
+47        	41        
+16        	44        
+36        	27        
+36        	40        
+35        	23        
+31        	24        
+18        	14        
+19        	23        
+42        	47        
+17        	26        
+1         	22        
+7         	38        
+41        	42        
+27        	38        
+\.
+
+
+--
+-- Data for Name: song; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.song (publisher_name, tid, aid, artid) FROM stdin;
+\N	20        	41        	1         
+\N	28        	41        	5         
+\N	21        	33        	17        
+\N	23        	50        	15        
+\N	30        	4         	1         
+\N	44        	22        	4         
+\N	8         	36        	14        
+\N	45        	10        	37        
+\N	44        	16        	1         
+\N	45        	43        	25        
+\N	19        	35        	22        
+\N	33        	15        	33        
+\N	8         	16        	45        
+\N	6         	35        	6         
+\N	2         	24        	17        
+\N	43        	40        	8         
+\N	38        	31        	15        
+\N	24        	25        	26        
+\N	19        	43        	22        
+\N	12        	18        	43        
+\N	44        	14        	37        
+\N	36        	45        	4         
+\N	43        	11        	3         
+\N	34        	10        	1         
+\N	8         	38        	22        
+\N	29        	50        	14        
+\N	26        	31        	26        
+\N	6         	8         	39        
+\N	33        	25        	31        
+\N	22        	15        	5         
+\N	2         	27        	3         
+\N	44        	28        	47        
+\N	28        	42        	36        
+\N	5         	50        	42        
+\N	31        	25        	31        
+\N	29        	13        	47        
+\N	46        	20        	16        
+\N	1         	3         	23        
+\N	34        	6         	27        
+\N	29        	34        	46        
+\N	39        	14        	27        
+\N	12        	10        	1         
+\N	18        	44        	36        
+\N	16        	44        	32        
+\N	14        	10        	6         
+\N	31        	29        	34        
+\N	26        	25        	15        
+\N	17        	19        	27        
+\N	23        	15        	1         
+\N	40        	41        	38        
+\N	87878     	12        	45        
+\N	5018      	3         	5         
+\N	ryan101   	1         	4         
+\.
+
+
+--
+-- Data for Name: title; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.title (name, tid, length_sec) FROM stdin;
+Here Without Jenny\n	1         	144
+Another Pineapple in the Wall\n	2         	318
+It Hurts To Shoot Ladies From Your Pineapple, But Its Necessary\n	3         	127
+They Are Night Ladies! They Have Come Back From The North Pole!! Ahhhh!\n	4         	148
+This Is A Sight We Had One Day From Scrummy The North Pole\n	5         	199
+Livin on a Pineapple\n	6         	162
+A Lot Of People Tell Me I Have A Fake Pineapple\n	7         	329
+My Name is Jenny\n	8         	314
+Travel This Way\n	9         	135
+Sweet Pineapple O Mine\n	10        	217
+Good Pineapple\n	11        	62
+Your Scrummy Heart\n	12        	215
+We Shall Travel\n	13        	347
+Four Scrummy Ladies\n	14        	313
+She Thinks Pineapples Sexy\n	15        	112
+Behind Scrummy Ladies\n	16        	360
+Late Night Pineapple\n	17        	40
+Smells Like a Scrummy Pineapple\n	18        	80
+Dont Eat Ladies Off The Sidewalk\n	19        	234
+When Scrummy Ladies Travel\n	20        	332
+Gonna Make You Travel\n	21        	325
+Look Jenny, this is my Pineapple\n	22        	91
+Smack My Pineapple Up\n	23        	151
+Somewhere Over the Pineapple\n	24        	60
+Free Pineapple\n	25        	269
+Born Scrummy\n	26        	251
+Careful With That Pineapple\n	27        	81
+Pineapple Fields Forever\n	28        	65
+Whole Lotta Ladies\n	29        	240
+Amazing Jenny\n	30        	236
+Jenny Broke My Heart At The North Pole\n	31        	47
+Scrummy Ladies Forever\n	32        	214
+Many Pieces Of Large Fuzzy Ladies Gathered Together At The North Pole And Grooving On A Pineapple\n	33        	313
+Smells Like Scrummy Ladies\n	34        	316
+Like a Scrummy Pineapple\n	35        	100
+Pineapple I Have Become\n	36        	144
+Jennys Scrummy Ladies Club Band\n	37        	154
+You Think I Aint Worth A Pineapple But I Feel Like A Million Ladies\n	38        	52
+The Number of your Pineapple\n	39        	190
+Early Morning Travel\n	40        	238
+Yearning for Scrummy Ladies\n	41        	265
+When Scrummy Ladies Cry\n	42        	98
+Bridge Over Scrummy Ladies\n	43        	306
+Stairway to The North Pole\n	44        	285
+Jennys Waiting\n	45        	155
+Straight Outta The North Pole\n	46        	192
+Total Eclipse of the Pineapple\n	47        	94
+Pineapple Autopsy\n	48        	299
+Pineapple Deep, Ladies High\n	49        	138
+Pineapple Boogie\n	50        	34
+Beer	51        	132
+test	3333      	345
+test	8778      	345
+pog123123	          	999
+please	4353435   	453
+testtttt	666666    	44444
+uwuuuuuuuuuuuuuuuuu	87878     	4444
+Sad Machine	5018      	312
+Baby Back Ribs	1th1      	321
+La La theme	1movie    	200
+La La theme	jazz101   	200
+La La theme	ryan101   	200
+La Croix	water21   	500
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (gender, uid, name, email, birthday) FROM stdin;
+F	1         	Olivia\n	stone@meekness.com\n	\N
+M	2         	Emma\n	ca-tech@dps.centrin.net.id\n	\N
+F	3         	Ava\n	trinanda_lestyowati@telkomsel.co.id\n	\N
+F	4         	Sophia\n	asst_dos@astonrasuna.com\n	\N
+F	5         	Isabella\n	amartabali@dps.centrin.net.id\n	\N
+M	6         	Charlotte\n	achatv@cbn.net.id\n	\N
+F	7         	Amelia\n	bali@tuguhotels.com\n	\N
+M	8         	Mia\n	baliminimalist@yahoo.com\n	\N
+M	9         	Harper\n	bliss@thebale.com\n	\N
+M	10        	Evelyn\n	adhidharma@denpasar.wasantara.net.id\n	\N
+M	11        	Abigail\n	centralreservation@ramayanahotel.com\n	\N
+M	12        	Emily\n	apribadi@balimandira.com\n	\N
+F	13        	Ella\n	cdagenhart@ifc.org\n	\N
+M	14        	Elizabeth\n	dana_supriyanto@interconti.com\n	\N
+M	15        	Camila\n	dos@novotelbali.com\n	\N
+F	16        	Luna\n	daniel@hotelpadma.com\n	\N
+M	17        	Sofia\n	daniel@balibless.com\n	\N
+M	18        	Avery\n	djoko_p@jayakartahotelsresorts.com\n	\N
+M	19        	Mila\n	expdepot@indosat.net.id\n	\N
+F	20        	Aria\n	feby.adamsyah@idn.xerox.com\n	\N
+F	21        	Scarlett\n	christian_rizal@interconti.com\n	\N
+F	22        	Penelope\n	singgih93@mailcity.com\n	\N
+M	23        	Layla\n	idonk_gebhoy@yahoo.com\n	\N
+F	24        	Chloe\n	info@houseofbali.com\n	\N
+M	25        	Victoria\n	kyohana@toureast.net\n	\N
+F	26        	Madison\n	sales@nusaduahotel.com\n	\N
+F	27        	Eleanor\n	jayakarta@mataram.wasantara.net.id\n	\N
+F	28        	Grace\n	mapindo@indo.net.id\n	\N
+M	29        	Nora\n	sm@ramayanahotel.com\n	\N
+M	30        	Riley\n	anekabeach@dps.centrin.net.id\n	\N
+M	31        	Zoey\n	yogya@jayakartahotelsresorts.com\n	\N
+M	32        	Hannah\n	garudawisatajaya@indo.net.id\n	\N
+F	33        	Hazel\n	ketut@kbatur.com\n	\N
+M	34        	Lily\n	bondps@bonansatours.com\n	\N
+M	35        	Ellie\n	witamgr@dps.centrin.net.id\n	\N
+F	36        	Violet\n	dtedja@indosat.net.id\n	\N
+F	37        	Lillian\n	info@stpbali.ac.id\n	\N
+M	39        	Stella\n	pamilu@mas-travel.com\n	\N
+M	40        	Aurora\n	amandabl@indosat.net.id\n	\N
+F	41        	Natalie\n	marketing@csdwholiday.com\n	\N
+F	42        	Emilia\n	luha89@yahoo.com\n	\N
+F	43        	Everly\n	indahsuluh2002@yahoo.com.sg\n	\N
+M	44        	Leah\n	imz1991@yahoo.com\n	\N
+F	45        	Aubrey\n	gus_war81@yahoo.com\n	\N
+M	46        	Willow\n	kf034@indosat.net.id\n	\N
+F	47        	Addison\n	800produkwil@posindonesia.co.id\n	\N
+F	48        	Lucy\n	kontak.synergi@yahoo.com\n	\N
+F	49        	Audrey\n	oekaoeka@yahoo.com\n	\N
+\.
+
+
+--
+-- Name: admin admin_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.admin
+    ADD CONSTRAINT admin_pkey PRIMARY KEY (uid);
+
+
+--
+-- Name: album album_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.album
+    ADD CONSTRAINT album_pkey PRIMARY KEY (aid);
+
+
+--
+-- Name: artist artist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.artist
+    ADD CONSTRAINT artist_pkey PRIMARY KEY (artid);
+
+
+--
+-- Name: genre genre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre
+    ADD CONSTRAINT genre_pkey PRIMARY KEY (gid);
+
+
+--
+-- Name: has has_tid_gid_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.has
+    ADD CONSTRAINT has_tid_gid_key UNIQUE (tid, gid);
+
+
+--
+-- Name: song song_tid_aid_artid_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.song
+    ADD CONSTRAINT song_tid_aid_artid_key UNIQUE (tid, aid, artid);
+
+
+--
+-- Name: title title_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.title
+    ADD CONSTRAINT title_pkey PRIMARY KEY (tid);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (uid);
+
+
+--
+-- Name: has has_gid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.has
+    ADD CONSTRAINT has_gid_fkey FOREIGN KEY (gid) REFERENCES public.genre(gid);
+
+
+--
+-- Name: has has_tid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.has
+    ADD CONSTRAINT has_tid_fkey FOREIGN KEY (tid) REFERENCES public.title(tid);
+
+
+--
+-- Name: song song_aid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.song
+    ADD CONSTRAINT song_aid_fkey FOREIGN KEY (aid) REFERENCES public.album(aid);
+
+
+--
+-- Name: song song_artid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.song
+    ADD CONSTRAINT song_artid_fkey FOREIGN KEY (artid) REFERENCES public.artist(artid);
+
+
+--
+-- Name: song song_tid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.song
+    ADD CONSTRAINT song_tid_fkey FOREIGN KEY (tid) REFERENCES public.title(tid);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
